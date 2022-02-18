@@ -30,6 +30,7 @@ namespace PatientRecordApplication
         {
             string recordIn;
             string[] fields;
+            int offset = 0;
 
             try {
                 fileStream = new FileStream("PatientData.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite);
@@ -43,11 +44,12 @@ namespace PatientRecordApplication
                     fields = recordIn.Split(',');
                     if (Convert.ToInt32(fields[0]) == patient.IDNum)
                     {
-                        writer.WriteLine("TESTESTTESTESTEST");
-                        //writer.WriteLine(patient.IDNum + "," + patient.Name + "," + patient.BalanceOwed);
+                        fileStream.Seek(offset, SeekOrigin.Begin);
+                        writer.WriteLine(patient.IDNum + "," + patient.Name + "," + patient.BalanceOwed);
                         return;
                     }
                     recordIn = reader.ReadLine();
+                    ++offset;
                 }
                 //Only reached if the patient is new
                 WritePatient(patient);

@@ -12,6 +12,8 @@ namespace PatientRecordApplication
         {
             Patient patient = new Patient(4, "Test", 44);
             RecordKeeper.WritePatient(patient);
+            patient.BalanceOwed = 5;
+            RecordKeeper.UpdatePatient(patient);
         }
     }
 }
